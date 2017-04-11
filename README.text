@@ -1,0 +1,333 @@
+# The_Reality_of_Virtuality
+Project Overview:
+An Othello Game / Tic-Tac-Toe Simulator.
+
+Overview
+In this project, I implemented my Othello/Tic-Tac-Toe simulator using an object-oriented C++ solution following the well-known model-view-controller (MVC) software design pattern. I programmed the general rules of the game and allowed two human players to compete in a text-based version of Othello/Reversi or Tic-Tac-Toe. Both of these games derive from a generic set of base classes that use virtual methods to allow specific games to override generic game-related functions like getting possible moves, applying moves, etc.
+
+The "big picture" point of this project is that the controller portion really doesn't do anything specific to othello. The main logic prints a "board", shows some "possible moves", reads in a string representing a "move", verifies that move is "valid", and "applies" the move, then repeats. None of that has anyting to do with othello, and in fact the same logic could be used to run any two-player alternating-turns board game... like Tic Tac Toe! 
+
+If the main was going to interact solely with generic board games, then I needed to design base classes with virtual functions that Othello and TicTacToe-specific classes can derive from. If I separate the "game-specific" logic from the "game-agnostic" logic in the othello classes, I come up with the following base classes representing a generic two-player game. 
+      -GameMove: represents a single move that can be applied to a GameBoard.
+      -GameBoard: represents all the state needed to track and play a game.
+      -GameView: prints a GameBoard to an ostream
+
+
+Othello/Reversi Game Rules:
+If you are unfamiliar with the how the game of Othello/Reversi is played, check out the Wikipedia article titled Reversi. I use the following specific rules in my implementation of this program:
+1. The game board is an 8x8 grid of squares. Each square can have a single piece that is either black or white on that square, or it can be empty. The rows of the grid are numbered 0 through 7, as are the columns. Thus the upper left corner is position (0, 0), and the upper right is position (0, 7).
+2. At the start of the game, the center four squares are already taken by two black and two white pieces; see the Wikipedia article Rules section for a picture.
+3. On his/her turn, a player must input a square coordinate for their move, in the format move (r, c). 
+4. If the board is full or the player cannot make a valid move, they must pass.
+5. The game ends when both players pass in succession. This means the maximum game length is 60 moves to fill in the 60 remaining squares after the initial setup, plus 2 pass moves = 62 total moves... but not every game will go that long.
+6. Black is the first player to move.
+7. When the game is over, the winner is displayed by counting the value of the board. For each black piece, the value goes up by 1; for each white piece, it goes down by 1. Thus a value of 0 indicates a tie, a positive value indicates a black win, and a negative indicates a white win. The winner is displayed even if the board is not completely filled.
+
+
+Dependencies:
+Microsoft Visual Studio Express 2012 for Windows Desktop Version: 11.0.61030.00 Update 4.
+
+
+Sample Output: 
+*Note: Only the ending portion of a game of Othello is shown to save space.
+- 0 1 2 3 4 5 6 7
+0 . . . . . . . .
+1 . . B . . . . .
+2 . . B . . . . .
+3 . . B W B . . .
+4 . . B B B . . .
+5 . . B B B . . .
+6 . . . . . . . .
+7 . . . . . . . .
+
+White's move...
+
+Possible Moves:
+operator new: 8 moves outstanding
+operator new: 9 moves outstanding
+operator new: 10 moves outstanding
+operator new: 11 moves outstanding
+operator new: 12 moves outstanding
+operator new: 13 moves outstanding
+move (1,1); operator delete: 12 moves oustanding
+move (3,1); operator delete: 11 moves oustanding
+move (3,5); operator delete: 10 moves oustanding
+move (5,1); operator delete: 9 moves oustanding
+move (5,5); operator delete: 8 moves oustanding
+move (6,3); operator delete: 7 moves oustanding
+
+Possible commands: move (r,c)
+                   undo #moves
+                   showValue
+                   showHistory
+                   quit
+
+Please enter a command:
+move (5,5)
+
+operator new: 8 moves outstanding
+operator new: 9 moves outstanding
+operator new: 10 moves outstanding
+operator new: 11 moves outstanding
+operator new: 12 moves outstanding
+operator new: 13 moves outstanding
+operator new: 14 moves outstanding
+operator delete: 13 moves oustanding
+operator delete: 12 moves oustanding
+operator delete: 11 moves oustanding
+operator delete: 10 moves oustanding
+operator delete: 9 moves oustanding
+operator delete: 8 moves oustanding
+
+Gameboard:
+
+- 0 1 2 3 4 5 6 7
+0 . . . . . . . .
+1 . . B . . . . .
+2 . . B . . . . .
+3 . . B W B . . .
+4 . . B B W . . .
+5 . . B B B W . .
+6 . . . . . . . .
+7 . . . . . . . .
+
+Black's move...
+
+Possible Moves:
+operator new: 9 moves outstanding
+operator new: 10 moves outstanding
+operator new: 11 moves outstanding
+operator new: 12 moves outstanding
+operator new: 13 moves outstanding
+operator new: 14 moves outstanding
+move (2,3); operator delete: 13 moves oustanding
+move (2,4); operator delete: 12 moves oustanding
+move (3,5); operator delete: 11 moves oustanding
+move (4,5); operator delete: 10 moves oustanding
+move (5,6); operator delete: 9 moves oustanding
+move (6,6); operator delete: 8 moves oustanding
+
+Possible commands: move (r,c)
+                   undo #moves
+                   showValue
+                   showHistory
+                   quit
+
+Please enter a command:
+move (6,6)
+
+operator new: 9 moves outstanding
+operator new: 10 moves outstanding
+operator new: 11 moves outstanding
+operator new: 12 moves outstanding
+operator new: 13 moves outstanding
+operator new: 14 moves outstanding
+operator new: 15 moves outstanding
+operator delete: 14 moves oustanding
+operator delete: 13 moves oustanding
+operator delete: 12 moves oustanding
+operator delete: 11 moves oustanding
+operator delete: 10 moves oustanding
+operator delete: 9 moves oustanding
+
+Gameboard:
+
+- 0 1 2 3 4 5 6 7
+0 . . . . . . . .
+1 . . B . . . . .
+2 . . B . . . . .
+3 . . B B B . . .
+4 . . B B B . . .
+5 . . B B B B . .
+6 . . . . . . B .
+7 . . . . . . . .
+
+White's move...
+
+Possible Moves:
+operator new: 10 moves outstanding
+move pass; operator delete: 9 moves oustanding
+
+Possible commands: move (r,c)
+                   undo #moves
+                   showValue
+                   showHistory
+                   quit
+
+Please enter a command:
+undo 1
+
+operator delete: 8 moves oustanding
+
+Gameboard:
+
+- 0 1 2 3 4 5 6 7
+0 . . . . . . . .
+1 . . B . . . . .
+2 . . B . . . . .
+3 . . B W B . . .
+4 . . B B W . . .
+5 . . B B B W . .
+6 . . . . . . . .
+7 . . . . . . . .
+
+Black's move...
+
+Possible Moves:
+operator new: 9 moves outstanding
+operator new: 10 moves outstanding
+operator new: 11 moves outstanding
+operator new: 12 moves outstanding
+operator new: 13 moves outstanding
+operator new: 14 moves outstanding
+move (2,3); operator delete: 13 moves oustanding
+move (2,4); operator delete: 12 moves oustanding
+move (3,5); operator delete: 11 moves oustanding
+move (4,5); operator delete: 10 moves oustanding
+move (5,6); operator delete: 9 moves oustanding
+move (6,6); operator delete: 8 moves oustanding
+
+Possible commands: move (r,c)
+                   undo #moves
+                   showValue
+                   showHistory
+                   quit
+
+Please enter a command:
+move (6,6)
+
+operator new: 9 moves outstanding
+operator new: 10 moves outstanding
+operator new: 11 moves outstanding
+operator new: 12 moves outstanding
+operator new: 13 moves outstanding
+operator new: 14 moves outstanding
+operator new: 15 moves outstanding
+operator delete: 14 moves oustanding
+operator delete: 13 moves oustanding
+operator delete: 12 moves oustanding
+operator delete: 11 moves oustanding
+operator delete: 10 moves oustanding
+operator delete: 9 moves oustanding
+
+Gameboard:
+
+- 0 1 2 3 4 5 6 7
+0 . . . . . . . .
+1 . . B . . . . .
+2 . . B . . . . .
+3 . . B B B . . .
+4 . . B B B . . .
+5 . . B B B B . .
+6 . . . . . . B .
+7 . . . . . . . .
+
+White's move...
+
+Possible Moves:
+operator new: 10 moves outstanding
+move pass; operator delete: 9 moves oustanding
+
+Possible commands: move (r,c)
+                   undo #moves
+                   showValue
+                   showHistory
+                   quit
+
+Please enter a command:
+showValue
+
+Board Value: 13
+
+White's move...
+
+Possible commands: move (r,c)
+                   undo #moves
+                   showValue
+                   showHistory
+                   quit
+
+Please enter a command:
+showHistory
+
+Black: (6,6)
+White: (5,5)
+Black: (5,4)
+White: (5,3)
+Black: (1,2)
+White: (2,2)
+Black: (5,2)
+White: (4,2)
+Black: (3,2)
+
+White's move...
+
+Possible commands: move (r,c)
+                   undo #moves
+                   showValue
+                   showHistory
+                   quit
+
+Please enter a command:
+move pass
+
+operator new: 10 moves outstanding
+operator new: 11 moves outstanding
+operator delete: 10 moves oustanding
+
+Gameboard:
+
+- 0 1 2 3 4 5 6 7
+0 . . . . . . . .
+1 . . B . . . . .
+2 . . B . . . . .
+3 . . B B B . . .
+4 . . B B B . . .
+5 . . B B B B . .
+6 . . . . . . B .
+7 . . . . . . . .
+
+Black's move...
+
+Possible Moves:
+operator new: 11 moves outstanding
+move pass; operator delete: 10 moves oustanding
+
+Possible commands: move (r,c)
+                   undo #moves
+                   showValue
+                   showHistory
+                   quit
+
+Please enter a command:
+move pass
+
+operator new: 11 moves outstanding
+operator new: 12 moves outstanding
+operator delete: 11 moves oustanding
+
+Gameboard:
+
+- 0 1 2 3 4 5 6 7
+0 . . . . . . . .
+1 . . B . . . . .
+2 . . B . . . . .
+3 . . B B B . . .
+4 . . B B B . . .
+5 . . B B B B . .
+6 . . . . . . B .
+7 . . . . . . . .
+
+Game Over. Black wins!
+operator delete: 10 moves oustanding
+operator delete: 9 moves oustanding
+operator delete: 8 moves oustanding
+operator delete: 7 moves oustanding
+operator delete: 6 moves oustanding
+operator delete: 5 moves oustanding
+operator delete: 4 moves oustanding
+operator delete: 3 moves oustanding
+operator delete: 2 moves oustanding
+operator delete: 1 moves oustanding
+operator delete: 0 moves oustanding
+Press any key to continue . . .
