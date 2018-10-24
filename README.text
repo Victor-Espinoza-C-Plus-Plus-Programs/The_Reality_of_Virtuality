@@ -1,5 +1,5 @@
-# The_Reality_of_Virtuality
 Project Overview:
+
 An Othello Game / Tic-Tac-Toe Simulator.
 
 In this project, I implemented my Othello/Tic-Tac-Toe simulator using an object-oriented C++ solution following the well-known model-view-controller (MVC) software design pattern. I programmed the general rules of the game and allowed two human players to compete in a text-based version of Othello/Reversi or Tic-Tac-Toe. Both of these games derive from a generic set of base classes that use virtual methods to allow specific games to override generic game-related functions like getting possible moves, applying moves, etc.
